@@ -1,0 +1,16 @@
+CREATE TABLE CustomerFeedback (
+    FeedbackID INT IDENTITY(1,1) PRIMARY KEY,
+    CustomerName NVARCHAR(100) NOT NULL,
+    FeedbackCategory NVARCHAR(50) NOT NULL,
+    Feedback NVARCHAR(MAX) NOT NULL,
+    Rating INT NOT NULL,
+    OwnerName NVARCHAR(100) NULL,
+    Status NVARCHAR(30) NOT NULL DEFAULT 'New',
+    CreatedDate DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+
+    CONSTRAINT CK_CustomerFeedback_Rating
+        CHECK (Rating BETWEEN 1 AND 5),
+
+    CONSTRAINT CK_CustomerFeedback_Status
+        CHECK (Status IN ('New', 'Assigned', 'In Progress', 'Resolved', 'Closed'))
+);
